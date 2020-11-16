@@ -7,8 +7,7 @@ import { currentUserRouter } from './routes/current-user';
 import { signInRouter } from './routes/signin';
 import { signUpRouter } from './routes/signup';
 import { signOutRouter } from './routes/signout';
-import { errorHandler } from './middleware/error-handler';
-import { NotFoundError } from './errors/not-found';
+import { errorHandler, NotFoundError } from '@jlgittix/common';
 
 const app = express();
 app.set('trust proxy', true);
