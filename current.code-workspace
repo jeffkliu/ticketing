@@ -1,13 +1,14 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"git.ignoreLimitWarning": true,
-		"prettier.trailingComma": "all",
-		"beautify.config": "",
-		"prettier.useEditorConfig": false
-	}
+  "folders": [
+    {
+      "name": "ticketing",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "git.ignoreLimitWarning": true,
+    "prettier.trailingComma": "all",
+    "beautify.config": "",
+    "prettier.useEditorConfig": false
+  }
 }
