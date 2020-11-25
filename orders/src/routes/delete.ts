@@ -1,18 +1,18 @@
-import express, { Request, Response, Router } from 'express';
+import express, { Request, Response, Router } from "express";
 import {
   NotAuthorizedError,
   NotFoundError,
   requireAuth,
-} from '@jlgittix/common';
-import { Order, OrderStatus } from '../models/order';
-import { NotBeforeError } from 'jsonwebtoken';
-import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher';
-import { natsWrapper } from '../nats-wrapper';
+} from "@jlgittix/common";
+import { Order, OrderStatus } from "../models/order";
+import { NotBeforeError } from "jsonwebtoken";
+import { OrderCancelledPublisher } from "../events/publishers/order-cancelled-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
 router.delete(
-  '/api/orders/:orderId',
+  "/api/orders/:orderId",
   requireAuth,
   async (req: Request, res: Response) => {
     const { orderId } = req.params;
@@ -37,11 +37,12 @@ router.delete(
       ticket: {
         id: order.ticket.id,
         price: order.ticket.price,
+        version: order.ticket.version,
       },
     });
 
     res.status(204).send(order);
-  },
+  }
 );
 
 export { router as deleteOrderRouter };
