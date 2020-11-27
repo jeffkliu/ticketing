@@ -10,7 +10,6 @@ import {
 import { body } from 'express-validator';
 import { Ticket } from '../models/ticket';
 import { Order } from '../models/order';
-import { NotBeforeError } from 'jsonwebtoken';
 import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
 
@@ -59,11 +58,11 @@ router.post(
       id: order.id,
       status: OrderStatus.Created,
       userId: order.userId,
+      version: order.version,
       expiresAt: order.expiresAt.toISOString(),
       ticket: {
         id: ticket.id,
         price: ticket.price,
-        version: ticket.version,
       },
     });
 
