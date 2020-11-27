@@ -6,6 +6,7 @@ import {
   OrderStatus,
   requireAuth,
   validateRequest,
+<<<<<<< HEAD
 } from "@jlgittix/common";
 import { body } from "express-validator";
 import { Ticket } from "../models/ticket";
@@ -13,6 +14,14 @@ import { Order } from "../models/order";
 import { NotBeforeError } from "jsonwebtoken";
 import { OrderCreatedPublisher } from "../events/publishers/order-created-publisher";
 import { natsWrapper } from "../nats-wrapper";
+=======
+} from '@jlgittix/common';
+import { body } from 'express-validator';
+import { Ticket } from '../models/ticket';
+import { Order } from '../models/order';
+import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher';
+import { natsWrapper } from '../nats-wrapper';
+>>>>>>> dev
 
 const router = express.Router();
 
@@ -59,6 +68,7 @@ router.post(
       id: order.id,
       status: OrderStatus.Created,
       userId: order.userId,
+      version: order.version,
       expiresAt: order.expiresAt.toISOString(),
       ticket: {
         id: ticket.id,
