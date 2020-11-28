@@ -3,20 +3,11 @@ import {
   NotAuthorizedError,
   NotFoundError,
   requireAuth,
-<<<<<<< HEAD
 } from "@jlgittix/common";
 import { Order, OrderStatus } from "../models/order";
 import { NotBeforeError } from "jsonwebtoken";
 import { OrderCancelledPublisher } from "../events/publishers/order-cancelled-publisher";
 import { natsWrapper } from "../nats-wrapper";
-=======
-} from '@jlgittix/common';
-import { Order, OrderStatus } from '../models/order';
-import { NotBeforeError } from 'jsonwebtoken';
-import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher';
-import { natsWrapper } from '../nats-wrapper';
-import { version } from 'mongoose';
->>>>>>> dev
 
 const router = express.Router();
 
@@ -26,7 +17,7 @@ router.delete(
   async (req: Request, res: Response) => {
     const { orderId } = req.params;
 
-    const order = await Order.findById(orderId).populate('ticket');
+    const order = await Order.findById(orderId).populate("ticket");
 
     if (!order) {
       throw new NotFoundError();
@@ -46,11 +37,6 @@ router.delete(
       version: order.version,
       ticket: {
         id: order.ticket.id,
-<<<<<<< HEAD
-        price: order.ticket.price,
-=======
->>>>>>> dev
-        version: order.ticket.version,
       },
     });
 
