@@ -1,5 +1,5 @@
 import { natsWrapper } from "./nats-wrapper";
-import { OrderCreatedListener } from "../events/listeners/order-created-listener";
+import { OrderCreatedListener } from "./events/listeners/order-created-listener";
 
 const start = async () => {
   // Generate JWT
