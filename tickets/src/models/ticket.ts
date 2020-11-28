@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
-import { updateTicketRouter } from '../routes/update';
 
 interface TicketAttrs {
   title: string;
@@ -55,7 +54,6 @@ ticketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket(attrs);
 };
 
-export const Ticket = mongoose.model<TicketDoc, TicketModel>(
-  'Ticket',
-  ticketSchema,
-);
+const Ticket = mongoose.model<TicketDoc, TicketModel>('Ticket', ticketSchema);
+
+export { Ticket };
