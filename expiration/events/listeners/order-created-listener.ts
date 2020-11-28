@@ -1,7 +1,7 @@
 import { Listener, OrderCreatedEvent, Subjects } from "@jlgittix/common";
 import { Message } from "node-nats-streaming";
 import { queueGroupName } from "./queue-group-name";
-import { expirationQueue } from "../../queues/expiration-queue";
+import { expirationQueue } from "../../src/queues/expiration-queue";
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   subject: Subjects.OrderCreated = Subjects.OrderCreated;
