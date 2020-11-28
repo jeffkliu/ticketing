@@ -1,43 +1,41 @@
+import { Message } from 'node-nats-streaming';
+import mongoose from 'mongoose';
 import { OrderCreatedEvent, OrderStatus } from '@jlgittix/common';
 import { OrderCreatedListener } from '../order-created-listener';
 import { natsWrapper } from '../../../nats-wrapper';
 import { Ticket } from '../../../models/ticket';
-import mongoose from 'mongoose';
-import { Message } from 'node-nats-streaming';
-import { TicketUpdatedPublisher } from '../../publishers/ticket-updated-publisher';
 
 const setup = async () => {
   // Create an instance of the listener
   const listener = new OrderCreatedListener(natsWrapper.client);
 
-  // Create and save ticket
+  // Create and save a ticket
   const ticket = Ticket.build({
     title: 'concert',
     price: 99,
-    userId: 'asda',
+    userId: 'asdf',
   });
   await ticket.save();
 
   // Create the fake data event
   const data: OrderCreatedEvent['data'] = {
     id: mongoose.Types.ObjectId().toHexString(),
-    status: OrderStatus.Created,
-    userId: mongoose.Types.ObjectId().toHexString(),
-    expiresAt: Date(),
     version: 0,
+    status: OrderStatus.Created,
+    userId: 'alskdfj',
+    expiresAt: 'alskdjf',
     ticket: {
       id: ticket.id,
       price: ticket.price,
     },
   };
 
-  // Create a fake message object
-  //@ts-ignore
+  // @ts-ignore
   const msg: Message = {
     ack: jest.fn(),
   };
 
-  return { listener, data, msg, ticket };
+  return { listener, ticket, data, msg };
 };
 
 it('sets the userId of the ticket', async () => {
@@ -64,6 +62,10 @@ it('publishes a ticket updated event', async () => {
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
 
-  //@ts-ignore
-  console.log(natsWrapper.client.publish.mock.calls);
+  const ticketUpdatedData = JSON.parse(
+    (natsWrapper.client.publish as jest.Mock).mock.calls[2][1],
+  );
+  console.log(data.id);
+
+  expect(data.id).toEqual(ticketUpdatedData.orderId);
 });
