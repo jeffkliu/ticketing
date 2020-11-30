@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "skaffold": "^1.0.11",
-    "skaffold-ecommerce": "^1.0.0"
-  }
-}
